@@ -21,35 +21,80 @@
 <meta property="og:site_name" content="Klokk">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" href="https://i.ibb.co/ZRhqhTTT/favicon.png" type="image/png">
 <style>
-  :root {
-    --bg:       #ede3cf;
-    --bg2:      #ede7d9;
-    --ink:      #3a3530;
-    --ink-soft: #6b5f56;
-    --ink-faint:#8c7e74;
-    --rose:     #b06a58;
-    --rose-soft:#dbb8b0;
-    --sage:     #5e7d62;
-  }
+:root {
+  --bg: #1A1B26;
+  --bg2: #24253A;
+  --ink: #A9B1D6;
+  --ink-soft: #7A7F9A;
+  --ink-faint: #565A70;
+  --rose: #BB9AF7;
+  --rose-soft: #6B5F8A;
+  --sage: #7AA2F7;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+[data-theme="earth-moss"] {
+  --bg: #2D3322;
+  --bg2: #3A4129;
+  --ink: #F0EAD6;
+  --ink-soft: #B8B090;
+  --ink-faint: #7A7858;
+  --rose: #8DA36E;
+  --rose-soft: #5A6B45;
+  --sage: #C4A35A;
+}
 
-  html, body {
-    width: 100%; height: 100%;
-    background: var(--bg);
-    font-family: 'Jost', sans-serif;
-    color: var(--ink);
-    overflow: hidden;
-  }
+[data-theme="nordic-night"] {
+  --bg: #2E3440;
+  --bg2: #3B4252;
+  --ink: #D8DEE9;
+  --ink-soft: #9BA4B4;
+  --ink-faint: #616E8C;
+  --rose: #88C0D0;
+  --rose-soft: #4E6E7E;
+  --sage: #A3BE8C;
+}
 
-  body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background: radial-gradient(ellipse 80% 70% at 50% 40%, rgba(255,248,235,0.45) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  font-family: 'Jost', sans-serif;
+  color: var(--ink);
+  overflow: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 80% 70% at 50% 40%, var(--bg2) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.5s ease;
+}
+
+[data-theme="earth-moss"]::before {
+  content: '';
+  position: fixed; inset: -50%;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(141, 163, 110, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 70%, rgba(196, 163, 90, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 40% at 50% 80%, rgba(90, 107, 69, 0.12) 0%, transparent 50%);
+  animation: mesh-drift 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+@keyframes mesh-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(2%, -1%) scale(1.02); }
+  50% { transform: translate(-1%, 2%) scale(0.98); }
+  75% { transform: translate(1%, 1%) scale(1.01); }
+}
 
   .view {
     position: fixed; inset: 0;
@@ -155,28 +200,51 @@
   }
   .settings-text-btn:hover { color: var(--ink-soft); }
 
-  /* Fullscreen Toggle Styling */
-  #fs-btn {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    z-index: 200;
-    font-size: 24px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0; /* Critical for centering */
-    border-bottom: none !important;
-    transition: transform 0.3s ease, color 0.3s ease, opacity 0.6s ease;
-    transform-origin: center;
-  }
-  #fs-btn:hover {
-    transform: scale(1.25);
-    color: var(--rose);
-    border-bottom: none !important;
-  }
+/* Fullscreen Toggle Styling */
+#fs-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 200;
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0; /* Critical for centering */
+  border-bottom: none !important;
+  transition: transform 0.3s ease, color 0.3s ease, opacity 0.6s ease;
+  transform-origin: center;
+}
+#fs-btn:hover {
+  transform: scale(1.25);
+  color: var(--rose);
+  border-bottom: none !important;
+}
+
+/* Theme Toggle Styling */
+#theme-btn {
+  position: fixed;
+  bottom: 38px;
+  right: 40px;
+  z-index: 200;
+  font-size: 20px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: none !important;
+  transition: transform 0.3s ease, color 0.3s ease, opacity 0.6s ease;
+  transform-origin: center;
+}
+#theme-btn:hover {
+  transform: scale(1.2);
+  color: var(--rose);
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
 
   /* ── POMODORO ── */
   .pomo-wrap { display: flex; flex-direction: column; align-items: center; width: 300px; }
@@ -301,26 +369,27 @@
   }
 
   /* ── SETTINGS PANEL ── */
-  .settings-overlay {
-    position: fixed; inset: 0;
-    background: rgba(231, 215, 189, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 500;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-  .settings-overlay.open { opacity: 1; pointer-events: all; }
+.settings-overlay {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 500;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease, background 0.5s ease;
+}
+.settings-overlay.open { opacity: 0.85; pointer-events: all; }
+.settings-overlay.open { opacity: 1; pointer-events: all; }
 
-  .settings-panel {
-    background: #faf7f2;
-    border: 1px solid var(--rose-soft);
-    padding: 48px 52px;
-    width: 340px;
-    transform: translateY(8px);
-    transition: transform 0.4s ease;
-  }
+.settings-panel {
+  background: var(--bg);
+  border: 1px solid var(--rose-soft);
+  padding: 48px 52px;
+  width: 340px;
+  transform: translateY(8px);
+  transition: transform 0.4s ease, background 0.5s ease, border-color 0.5s ease;
+}
   .settings-overlay.open .settings-panel { transform: translateY(0); }
 
   .settings-title {
@@ -404,20 +473,27 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── LANDSCAPE (General) ── */
-  @media (orientation: landscape) {
-    .clock-time { font-size: clamp(60px, 12vw, 120px); }
-    .clock-date { margin-top: 12px; font-size: clamp(11px, 1.4vw, 16px); }
-    .breath-dot { margin-top: 16px; }
-    .nav { bottom: 24px; }
-    #fs-btn { 
-      bottom: calc(20px + env(safe-area-inset-bottom)) !important; 
-      right: calc(20px + env(safe-area-inset-right)) !important; 
-      font-size: 20px;
-      width: 40px;
-      height: 40px;
-    }
+/* ── LANDSCAPE (General) ── */
+@media (orientation: landscape) {
+  .clock-time { font-size: clamp(60px, 12vw, 120px); }
+  .clock-date { margin-top: 12px; font-size: clamp(11px, 1.4vw, 16px); }
+  .breath-dot { margin-top: 16px; }
+  .nav { bottom: 24px; }
+  #fs-btn {
+    bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+    left: calc(20px + env(safe-area-inset-left)) !important;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
   }
+  #theme-btn {
+    bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+    right: calc(20px + env(safe-area-inset-right)) !important;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
 
   /* ── MOBILE LANDSCAPE (Side-by-side controls) ── */
   @media (orientation: landscape) and (max-height: 540px) {
@@ -486,10 +562,22 @@
     .ctrl-main {
       width: 48px !important; height: 48px !important;
     }
-    .settings-text-btn {
-      margin-top: 15px;
-    }
+.settings-text-btn {
+  margin-top: 15px;
+}
+}
+
+/* ── MOBILE PORTRAIT ── */
+@media (max-width: 768px) {
+  #fs-btn {
+    bottom: 20px !important;
+    left: 20px !important;
   }
+  #theme-btn {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -545,6 +633,9 @@
 
 <!-- FULLSCREEN TOGGLE -->
 <button class="nav-btn hideable" id="fs-btn" onclick="toggleFS()">⛶</button>
+
+<!-- THEME TOGGLE -->
+<button class="nav-btn hideable" id="theme-btn" onclick="cycleTheme()">☽</button>
 
 
 <!-- SETTINGS OVERLAY -->
@@ -706,23 +797,62 @@ function renderPomo() {
 }
 
 function togglePomo() {
-  if (ps.running) { clearInterval(ps.iv); ps.running = false; }
-  else { ps.running = true; ps.iv = setInterval(tickPomo, 1000); }
+  if (ps.running) {
+    clearInterval(ps.iv); ps.running = false;
+  } else {
+    ps.running = true; ps.iv = setInterval(tickPomo, 1000);
+  }
   renderPomo();
 }
 
 function tickPomo() {
   ps.left--;
-  if (ps.left <= 0) { clearInterval(ps.iv); ps.running = false; advance(); return; }
+  if (ps.left <= 0) {
+    clearInterval(ps.iv);
+    ps.running = false;
+    advance();
+    return;
+  }
   renderPomo();
+}
+
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+function playTone(freq, duration) {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + duration);
+}
+function playSessionEnd() {
+  playTone(880, 0.15);
+  setTimeout(() => playTone(880, 0.15), 200);
+  setTimeout(() => playTone(880, 0.3), 400);
+}
+function playBreakEnd() {
+  playTone(523, 0.15);
+  setTimeout(() => playTone(659, 0.15), 150);
+  setTimeout(() => playTone(784, 0.3), 300);
 }
 
 function advance() {
   if (!ps.isBreak) {
+    playSessionEnd();
     ps.isBreak = true;
     const mins = ps.session >= SESSIONS - 1 ? cfg.long : cfg.short;
     ps.total = mins * 60; ps.left = ps.total;
   } else {
+    playBreakEnd();
     ps.isBreak = false;
     ps.session = (ps.session + 1) % SESSIONS;
     ps.total = cfg.work * 60; ps.left = ps.total;
@@ -785,6 +915,34 @@ document.getElementById('settings-overlay').addEventListener('click', function(e
 });
 
 buildDots(); renderPomo();
+
+// ── THEME CYCLER ──
+const themes = ['deep-focus', 'earth-moss', 'nordic-night'];
+const themeKey = 'klokk-theme';
+let currentThemeIndex = 0;
+
+function cycleTheme() {
+  currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+  applyTheme(themes[currentThemeIndex]);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem(themeKey, theme);
+  currentThemeIndex = themes.indexOf(theme);
+  document.getElementById('theme-btn').textContent = '☽';
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(themeKey);
+  if (saved && themes.includes(saved)) {
+    applyTheme(saved);
+  } else {
+    applyTheme('deep-focus');
+  }
+}
+
+initTheme();
 
 </script>
 
