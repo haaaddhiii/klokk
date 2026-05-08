@@ -116,7 +116,7 @@ function ClockTab() {
     return () => clearInterval(id);
   }, []);
 
-  const tweaks = window.__klokk_tweaks || { format24: false, showSeconds: true };
+  const tweaks = window.__brutime_tweaks || { format24: false, showSeconds: true };
 
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];

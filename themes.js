@@ -1,5 +1,5 @@
-// Theme palettes for klokk
-window.KLOKK_THEMES = {
+// Theme palettes for BruTime
+window.BRUTIME_THEMES = {
   parchment: {
     name: "PARCHMENT",
     bg: "#efe5cf",

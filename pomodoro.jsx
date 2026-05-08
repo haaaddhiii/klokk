@@ -6,8 +6,8 @@ function playBeep(type = "chime") {
   try {
     const Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return;
-    const ctx = window.__klokk_audioCtx || new Ctx();
-    window.__klokk_audioCtx = ctx;
+    const ctx = window.__brutime_audioCtx || new Ctx();
+    window.__brutime_audioCtx = ctx;
     if (type === "tick") {
       const o = ctx.createOscillator();
       const g = ctx.createGain();

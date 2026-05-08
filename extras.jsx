@@ -54,7 +54,7 @@ function Ambient() {
 }
 
 function ThemeSwitcher({ theme, setTheme }) {
-  const themes = window.KLOKK_THEMES;
+  const themes = window.BRUTIME_THEMES;
   return (
     <div className="theme-switch" title="switch palette">
       {Object.keys(themes).map((k) => {

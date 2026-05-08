@@ -1,8 +1,8 @@
-# klokk
+# BruTime
 
 A cozy, neobrutalist clock and pomodoro timer for focused work — flip-card clock, task tracking, streak heatmap, and warm parchment vibes.
 
-**Live:** https://klokk.netlify.app/
+**Live:** https://brutime.netlify.app/
 
 ## Features
 

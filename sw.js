@@ -1,4 +1,4 @@
-const CACHE = "klokk-v2-1";
+const CACHE = "brutime-v2-1";
 const ASSETS = [
   "./",
   "./index.html",

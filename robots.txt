@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://klokk.netlify.app/sitemap.xml
+Sitemap: https://brutime.netlify.app/sitemap.xml

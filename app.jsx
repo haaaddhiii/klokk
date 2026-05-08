@@ -1,7 +1,7 @@
-// KLOKK — main app
+// BruTime — main app
 const { useState: useS, useEffect: useE, useRef: useR, useCallback: useC } = React;
 
-const STORAGE_KEY = "klokk_v1";
+const STORAGE_KEY = "brutime_v1";
 
 function loadState() {
   try {
@@ -61,7 +61,7 @@ function App() {
         secondsLeft = remaining;
       } else {
         // Session finished while the tab was closed — fire completion on mount
-        window.__klokk_completeOnMount = true;
+        window.__brutime_completeOnMount = true;
         secondsLeft = 0;
       }
     } else if (typeof persisted.secondsLeft === "number") {
@@ -95,7 +95,7 @@ function App() {
 
   // Apply theme
   useE(() => {
-    const t = window.KLOKK_THEMES[theme];
+    const t = window.BRUTIME_THEMES[theme];
     if (!t) return;
     const r = document.documentElement.style;
     r.setProperty("--bg", t.bg);
@@ -130,7 +130,7 @@ function App() {
   }, [tweaks.pattern]);
 
   // Expose tweaks for ClockTab
-  window.__klokk_tweaks = tweaks;
+  window.__brutime_tweaks = tweaks;
 
   // tempUnit is in dep array via inclusion below
   // Persist state
@@ -197,7 +197,7 @@ function App() {
         if (!s.endsAt) return s;
         const remaining = Math.max(0, Math.ceil((s.endsAt - Date.now()) / 1000));
         if (remaining <= 0) {
-          window.__klokk_completeNext = true;
+          window.__brutime_completeNext = true;
           return { ...s, secondsLeft: 0, running: false, endsAt: null };
         }
         if (tweaks.soundTick && remaining !== s.secondsLeft && remaining % 2 === 0) {
@@ -211,8 +211,8 @@ function App() {
 
   // If the timer finished while the tab was closed, fire completion on mount
   useE(() => {
-    if (window.__klokk_completeOnMount) {
-      window.__klokk_completeOnMount = false;
+    if (window.__brutime_completeOnMount) {
+      window.__brutime_completeOnMount = false;
       handleSessionComplete(false);
     }
   }, []);
@@ -230,8 +230,8 @@ function App() {
 
   // Handle session completion side-effects
   useE(() => {
-    if (window.__klokk_completeNext) {
-      window.__klokk_completeNext = false;
+    if (window.__brutime_completeNext) {
+      window.__brutime_completeNext = false;
       handleSessionComplete(false);
     }
   }, [pomoState.secondsLeft]);
@@ -247,10 +247,10 @@ function App() {
     ) {
       const justFinished = pomoState.mode === "work" ? "Focus session" : pomoState.mode === "short" ? "Short break" : "Long break";
       try {
-        new Notification("klokk", {
+        new Notification("BruTime", {
           body: `${justFinished} complete — ready for the next round.`,
           icon: "favicon.svg",
-          tag: "klokk-session",
+          tag: "brutime-session",
         });
       } catch (e) {}
     }
@@ -310,9 +310,9 @@ function App() {
       const m = Math.floor(pomoState.secondsLeft / 60);
       const sec = pomoState.secondsLeft % 60;
       const mode = pomoState.mode === "work" ? "● focus" : pomoState.mode === "short" ? "☕ short" : "✿ long";
-      document.title = `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")} ${mode} — klokk`;
+      document.title = `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")} ${mode} — BruTime`;
     } else {
-      document.title = "klokk · cozy clock + pomodoro";
+      document.title = "BruTime · cozy clock + pomodoro";
     }
   }, [pomoState.secondsLeft, pomoState.running, pomoState.mode]);
 
@@ -328,10 +328,10 @@ function App() {
         <div className="topbar">
           <div className="brand">
             <div className="brand-mark">
-              <img src="logo.svg" alt="klokk" />
+              <img src="logo.svg" alt="BruTime" />
             </div>
             <div>
-              <h1 className="brand-name">KLOKK</h1>
+              <h1 className="brand-name">BRUTIME</h1>
               <div className="brand-sub">cozy clock × pomodoro</div>
             </div>
           </div>
@@ -390,7 +390,7 @@ function App() {
         </div>
 
         <div className="footer">
-          <span>klokk v2.0 · made with ♥</span>
+          <span>BruTime v2.0 · made with ♥</span>
         </div>
       </div>
 
@@ -404,7 +404,7 @@ function App() {
         theme={theme}
         setTheme={setTheme}
         onReset={() => {
-          if (confirm("Reset all klokk data? This clears tasks, stats, streak, and notes.")) {
+          if (confirm("Reset all BruTime data? This clears tasks, stats, streak, and notes.")) {
             try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
             location.reload();
           }

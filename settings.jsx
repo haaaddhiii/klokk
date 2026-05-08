@@ -84,7 +84,7 @@ function SettingsModal({ open, onClose, tweaks, setTweak, theme, setTheme, onRes
 
   if (!open) return null;
 
-  const themes = window.KLOKK_THEMES || {};
+  const themes = window.BRUTIME_THEMES || {};
 
   return (
     <div className="sf-backdrop" onClick={onClose}>
